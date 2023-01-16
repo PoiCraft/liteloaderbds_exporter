@@ -170,6 +170,9 @@ function metrics_entities_count() {
 
 function metrics_performance() {
     const [mspt, tps] = get_mspt_from_trapdoor();
+    if (mspt === null || tps === null) {
+        return [];
+    }
     const mspt_metric = new Metrics("mspt", mspt, []);
     const tps_metric = new Metrics("tps", tps, []);
     return [mspt_metric, tps_metric];
@@ -190,7 +193,7 @@ function get_mspt_from_trapdoor() {
         const tps = parseFloat(nums[1]);
         return [mspt, tps];
     }
-    return [NaN, NaN];
+    return [null, null];
 }
 
 //// Utils End
